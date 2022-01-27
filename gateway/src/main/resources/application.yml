@@ -3,5 +3,26 @@ server:
 spring:
   application:
     name: gateway
-
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring CLoud Gateway Global Filter
+            preLogger: true
+            postLogger: true
+      routes:
+        - id: member
+          uri: http://localhost:8081
+          predicates:
+            - Path=/member/**
+          filters:
+#            - AddRequestHeader=member-request, member-request2
+#            - AddResponseHeader=member-response, member-response2
+             - name: CustomFilter
+             - name: LoggingFilter
+               args:
+                 baseMessage: Logging Filter
+                 preLogger: true
+                 postLogger: true
 
