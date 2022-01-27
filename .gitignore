@@ -28,3 +28,4 @@
 ### spring modules ###
 gateway/build
 member/build
+eureka-server/build

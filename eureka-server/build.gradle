@@ -1,0 +1,7 @@
+bootJar {
+    archiveFileName = 'eureka-server.jar'
+}
+
+dependencies {
+    implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+}

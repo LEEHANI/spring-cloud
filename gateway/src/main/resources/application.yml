@@ -13,7 +13,8 @@ spring:
             postLogger: true
       routes:
         - id: member
-          uri: http://localhost:8081
+#          uri: http://localhost:8081
+          uri: lb://MEMBER
           predicates:
             - Path=/member/**
           filters:
@@ -25,4 +26,19 @@ spring:
                  baseMessage: Logging Filter
                  preLogger: true
                  postLogger: true
+        - id: product
+#          uri: http://localhost:8082
+          uri: lb://PRODUCT
+          predicates:
+            - Path=/product/**
+          filters:
+            - name: CustomFilter
 
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
