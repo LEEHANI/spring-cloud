@@ -29,3 +29,4 @@
 gateway/build
 member/build
 eureka-server/build
+member-load-balance/build

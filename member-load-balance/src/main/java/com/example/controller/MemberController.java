@@ -29,7 +29,7 @@ public class MemberController {
 
     @GetMapping("/load-balance")
     public String loadBalance() {
-        log.info("spring-cloud LB member test");
-        return "Member service LB!";
+        log.info("spring-cloud LB member-load-balance test");
+        return "Member-Load-Balance service LB!";
     }
 }
