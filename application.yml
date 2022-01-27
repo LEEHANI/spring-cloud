@@ -1,2 +1,2 @@
 default:
-  content: spring-cloud-config test
+  content: Hi~ spring-cloud-config test

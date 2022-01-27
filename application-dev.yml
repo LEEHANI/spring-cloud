@@ -1,0 +1,2 @@
+default:
+  content: Hello~ spring-cloud-config dev test
