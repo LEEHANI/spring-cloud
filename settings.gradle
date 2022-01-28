@@ -3,4 +3,6 @@ include 'gateway'
 include 'member'
 include 'eureka-server'
 include 'member-load-balance'
+include 'config-server'
+include 'config-client'
 
