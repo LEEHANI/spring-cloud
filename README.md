@@ -157,8 +157,8 @@ product: 상품 마이크로 서비스
 - Config 클래스 변수값은 args로 넣어줄 수 있다. 
 
 
-## eureka-server 적용 
-- eureka 서버에 유레카 클라이언트로 등록되면 어플리케이션 이름으로 라우팅을 할 수 있다.
+# eureka-server 적용 
+- eureka 서버에 유레카 클라이언트로 등록되면 어플리케이션 이름으로 `라우팅`을 할 수 있다.
   + `uri: http://localhost:8081` -> `uri: lb://MEMBER`
 - ```
   spring:
@@ -174,9 +174,9 @@ product: 상품 마이크로 서비스
 - 스프링 클라우드 로드 밸런싱 테스트를 위해 member-load-balance 모듈 추가. 
 - 다른 설정 사항은 동일하고 포트만 `8081`, `9081`로 다름. 
 - 어플리케이션 이름이 동일하고, 유레카 서버 설정에 `uri: lb://MEMBER`로 등록해 뒀으므로 추가로 설정할건 없다. 
-- [spring-cloud-gateway-load-balance](/images/spring-cloud-gateway-load-balance.png)
+- ![spring-cloud-gateway-load-balance](/images/spring-cloud-gateway-load-balance.png)
 - eureka-server, gateway, member, member-load-balance를 구동시키면 유레카 대시보드에 다음과 같이 나온다.
-- [member_lb](/images/member_lb.png)
-- [member_load_balance_lb](/images/member_load_balance_lb.png)
+- ![member_lb](/images/member_lb.png)
+- ![member_load_balance_lb](/images/member_load_balance_lb.png)
 - `http://localhost:8000/member/load-balance` 로 `게이트웨이`를 통해 api를 호출해보면, `라운드로빈 방식`으로 `member`, `member-load-balance`가 번갈아 호출된다.
 - 즉, 클라이언트 api 호출 -> 게이트웨이 -> 유레카 서버(서비스 조회) -> 라운드 로빈 방식으로 서비스 호출  
