@@ -88,7 +88,8 @@
   implementation('org.springframework.cloud:spring-cloud-starter-config')
   implementation('org.springframework.cloud:spring-cloud-starter-bootstrap')
   ```
-- 스프링 부트가 가동될때, config 서버의 설정을 가장 먼저 읽어야하는데 `application.yml`보다 먼저 로드되는 `bootstrap.yml`을 등록 해야함.   
+- 스프링 부트가 가동될때, config 서버의 설정을 가장 먼저 읽어야하는데 `application.yml`보다 먼저 로드되는 `bootstrap.yml`을 등록 해야함.
+- `resources/bootstrap.yml 생성`
   ```
   spring:
     cloud:
@@ -96,6 +97,7 @@
         uri: http://127.0.0.1:8888
         name: application 
   ```
+  + `application-dev.yml`을 읽어오고 싶다면, `bootstrap.yml`에 `spring.profiles.active: dev` 추가
 - application.yml 에는 기본 설정만 등록. 
   ```
   server:
@@ -139,6 +141,28 @@
 - 뭔가 이상하다. 서버를 빌드&재배포 하지 않기 위해 spring-cloud-config를 사용하는 것인데 서버를 재구동 시켜야한다니 
 
 ## 변경된 config 적용 방법 
-- 서버 재구동.  
-- actuator refresh 
-- spring-cloud-bus
+1. 서버 재구동. 
+2. actuator refresh. 
+3. spring-cloud-bus
+- 2, 3번 방법에 대해 더 알아보자.
+
+## spring actuator 
+- `spring actuator`로 `애플리케이션 상태`를 `모니터링` 할 수 있다.
+- 예를 들어, `health check`, `사용중인 빈 조회`, `세션 조회` 등이 있다. 
+  + https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html
+- gradle 
+  ``` 
+  implementation('org.springframework.boot:spring-boot-starter-actuator')
+  ```
+- application.yml에 모니터링할 엔드포인트를 추가. 
+  ```
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: refresh, health, beans 
+  ```
+
+- `http://localhost:8889/actuator/health` 를 호출해보자. `actuator`로 인해 기존에 만든 health-check api가 필요없어보인다.
+- config server에 변경된 config 정보를 다시 호출하려면 `curl -XPOST http://localhost:8889/actuator/refrsh` 를 호출하면 된다. 
+![re_fetching_cloud_config_by_actuator](../images/re_fetching_cloud_config_by_actuator.png)
