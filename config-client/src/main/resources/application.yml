@@ -3,8 +3,13 @@ server:
 spring:
   application:
     name: config-client
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 management:
   endpoints:
     web:
       exposure:
-        include: refresh,health,beans
+        include: refresh,health,beans,busrefresh

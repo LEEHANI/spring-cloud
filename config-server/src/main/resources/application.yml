@@ -9,3 +9,13 @@ spring:
       server:
         git:
           uri: https://github.com/LEEHANI/spring-cloud
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672 # 시스템은 5672로 등록
+    username: guest
+    password: guest
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,beans,busrefresh

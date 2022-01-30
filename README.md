@@ -1,4 +1,5 @@
 
+Gateway의 사용 목적 자체가 클라이언트의 요청을 일괄 처리 하여 라우팅 하는 목적이 크다고 생각됩니다. 따라서 필터는 클라이언트 요청에 대한 로깅 작업 이나 부하를 분산하기 위한 라우팅, 인증에 대한 용도로 사용하는 것이 좋을 것 같습니다. 도메인에 종속적인 서비스들에 대한 처리를 일괄적으로 처리가 가능한 부분도 대상이 될 수 있을 것 같습니다. Gateway에서 Global 필터 및 사용자 정의 필터를 용도에 맞게 적용할 수 있다고 생각됩니다.
 
 # spring-cloud
 
@@ -6,6 +7,7 @@
 ```
 eureka-server: 마이크로서비스 등록 및 검색 
 gateway: 마이크로서비스 부하 분산 및 라우팅
+
  
 member: 멤버 마이크로 서비스  
 member-load-balance: 멤버 로드밸런싱 테스트 마이크로 서비스  
@@ -179,4 +181,9 @@ product: 상품 마이크로 서비스
 - ![member_lb](/images/member_lb.png)
 - ![member_load_balance_lb](/images/member_load_balance_lb.png)
 - `http://localhost:8000/member/load-balance` 로 `게이트웨이`를 통해 api를 호출해보면, `라운드로빈 방식`으로 `member`, `member-load-balance`가 번갈아 호출된다.
-- 즉, 클라이언트 api 호출 -> 게이트웨이 -> 유레카 서버(서비스 조회) -> 라운드 로빈 방식으로 서비스 호출  
+- 즉, 클라이언트 api 호출 -> 게이트웨이 -> 유레카 서버(서비스 조회) -> 라운드 로빈 방식으로 서비스 호출
+
+# spring-cloud-config
+- 서버, 클라이언트 구성에 필요한 application.yml `설정 정보`를 `외부 시스템으로 관리.`
+- `https://github.com/LEEHANI/spring-cloud/tree/main/config-server`
+
