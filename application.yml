@@ -1,2 +1,2 @@
 default:
-  content: Hi~ spring-cloud-config test. update config file test
+  content: Hi~ spring-cloud-config test. update config file test. 1.30
