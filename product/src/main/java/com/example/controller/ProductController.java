@@ -17,7 +17,7 @@ public class ProductController {
     }
 
     @GetMapping("/message")
-    public String message(@RequestHeader("member-request") String header) {
+    public String message(@RequestHeader("product-request") String header) {
         log.info("header : {}", header);
         return "Hello product service header";
     }

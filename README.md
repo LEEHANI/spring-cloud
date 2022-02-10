@@ -1,5 +1,6 @@
 
 # spring-cloud
+![spring_cloud_netflix_maintenance_mode](/images/spring_cloud_netflix_maintenance_mode.png)
 
 # 애플리케이션 구성 요소 
 ```
