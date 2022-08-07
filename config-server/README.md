@@ -2,20 +2,28 @@
 - 서버, 클라이언트 구성에 필요한 application.yml `설정 정보`를 `외부 시스템으로 관리.`
 - `마이크로 서비스를 다시 빌드&배포하지 않아도 바로 적용`할 수 있음.
 - 설정 정보 저장소는 `git`, `local file` 등 여러곳이 있으며, `기본은 git 저장소`를 사용.
-- dev, alpha, prod 환경에 맞는 저장소를 사용해야함.
+- `dev`, `alpha`, `prod` 각 환경에 맞는 저장소를 사용해야함.
 
-## spring-cloud config 적용
-### config 생성 
+# spring-cloud config 적용
+## config 생성 
 - config를 어디에 저장할지 택해야 하는데, 제일 많이 사용하는 `git`을 선택 
 - config 정보를 저장할 위치를 정해야하는데, spring-cloud 모듈 바로 밑에 `application.yml`을 추가해둠.
+- ```
+  spring:
+    cloud:
+      config:
+        server:
+          git:
+            uri: https://github.com/LEEHANI/spring-cloud
   ```
+- 테스트를 위해 `application.yml` 내용은 `default.content`로 만들어둠
+- ```
   default:
     content: Hi~ spring-cloud-config test.
   ```
-- 테스트를 위해 내용은 `default.content`로 만들어둠
-
-### config-server 생성 
-- 생성해둔 설정 정보를 셋팅하는 `config-server` 모듈 추가 
+  
+## config-server 생성 
+- cloud-config-server 를 셋팅하는 `config-server` 모듈 추가 
 - gradle dependency
   ```
   implementation 'org.springframework.cloud:spring-cloud-config-server'
@@ -44,8 +52,7 @@
           git:
             uri: https://github.com/LEEHANI/spring-cloud
   ```   
-- server port는 `8888`로 많이 사용.
-- 위에 만들어뒀던 `application.yml`의 위치를 `spring.cloud.config.server.git.uri`에 지정 
+- cloud-config-server port는 `8888`를 주로 사용.
 
 ## config-server 구동 및 테스트 
 - 서버를 구동시키고 `http://localhost:8888/config-server/dev` 를 호출해보자. 
@@ -81,7 +88,7 @@
 - `http://localhost:8888/application-default.yml` 로 호출해보면 엔드 포인트의 의미를 알 수 있을 것이다.
 
 ## config-client 생성 
-- 기존 member 서버에 설정해줘도 되지만 처음해보는 것이니 `config-client` 서버를 생성했다. 
+- 기존 member 서버에 설정해줘도 되지만 테스트를 위해 `config-client` 서버를 새로 생성했다. 
 - gradle dependency
   ```  
   implementation('org.springframework.boot:spring-boot-starter-web')
@@ -98,6 +105,11 @@
         name: application 
   ```
   + `application-dev.yml`을 읽어오고 싶다면, `bootstrap.yml`에 `spring.profiles.active: dev` 추가
+  + ```
+    spring:
+      profiles:
+        active: dev
+    ```
 - application.yml 에는 기본 설정만 등록. 
   ```
   server:
